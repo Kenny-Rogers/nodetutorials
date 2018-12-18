@@ -1,0 +1,22 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "tutorials",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kenny-Rogers/nodetutorials.git"
+  },
+  "author": "kenny Rogers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kenny-Rogers/nodetutorials/issues"
+  },
+  "homepage": "https://github.com/Kenny-Rogers/nodetutorials#readme",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
