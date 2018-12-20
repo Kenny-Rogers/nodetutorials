@@ -10,6 +10,10 @@ const joi = require('joi');
 //app object is created by express and contains methods that can be used
 const app = express();
 
+/*MIDDLEWARE: is the code the code that gets executed between the user request and
+the server e.g  app.use(bodyParser.json()) 
+bodyParser is a middleware*/
+
 //using a middleware that creates an alias for our static files
 app.use('/public',express.static(path.join(__dirname,'static')));
 //using a middleware to allow parsing of urlencoded forms
@@ -18,6 +22,27 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 //setting the view templating engine to be used
 app.set('view engine','ejs');
+
+//creating a custom middleware 
+//this middleware works for all routes
+app.use((request,response,next)=>{
+    console.log(request.url,request.method);
+    //next indicates that the current process is done
+    next()
+});
+
+//creating a custom middleware for a specific route "middleware"
+app.use('/middleware',(request, response, next) => {
+    console.log("middleware route");
+    //middleware can modify request
+    request.newProp = "new user";
+    //next indicates that the current process is done
+    next()
+});
+
+app.get('/middleware', (request,response)=>{
+    console.log(request.newProp);
+});
 
 //creating get request for ejs 
 app.get('/ejs/:userQuery',(request,response)=>{
