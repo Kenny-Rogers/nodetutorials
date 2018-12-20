@@ -4,6 +4,8 @@ const express = require('express');
 const path = require('path');
 //including the bodyParser module that allows us to access form data
 const bodyParser = require('body-parser');
+//including JOI module that allows for form validation
+const joi = require('joi');
 
 //app object is created by express and contains methods that can be used
 const app = express();
@@ -40,10 +42,35 @@ app.get('/example/:name/:age',(request,response)=>{
 // });
 
 //handling a json POST request
-app.post('/', (request, response) => {
+// app.post('/', (request, response) => {
+//     console.log(request.body);
+//     //database work here
+//     response.json({success:true});
+// });
+
+//handling POST request and validating inputs with JOI
+app.post('/',(request, response)=>{
     console.log(request.body);
-    //database work here
-    response.json({success:true});
+    //validating input data using a scheme[Rules data must follow]
+    //creating a scheme
+    const schema = joi.object().keys({
+        //email rule:must be a string, email and can't be null
+        email : joi.string().trim().email().required(),
+        //password rule:must be a string of min lenght 5, max length 5 and can't be null
+        password : joi.string().min(5).max(10).required()
+    });
+    //using the scheme to validate data
+    joi.validate(request.body, schema, (err, result)=>{
+        if(err){
+            console.log(err);
+            response.send('an error has occured');
+        }else{
+            console.log(result);
+            response.send('successfully posted data');
+        }
+
+    });
+    //response.send('successfully posted data');
 });
 
 //setting up a port to listen for request on
