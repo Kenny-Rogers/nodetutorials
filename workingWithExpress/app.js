@@ -16,6 +16,17 @@ app.use('/public',express.static(path.join(__dirname,'static')));
 app.use(bodyParser.urlencoded({extended:false}));
 //using a middleware to allow parsing of JSON
 app.use(bodyParser.json());
+//setting the view templating engine to be used
+app.set('view engine','ejs');
+
+//creating get request for ejs 
+app.get('/ejs/:userQuery',(request,response)=>{
+    //displays the file /views/index.ejs with userQuery data
+    response.render('index',{data:{userQuery:request.params.userQuery,
+                                    searchResults:['book1', 'book2', 'book3'],
+                                    loggedIn:false,
+                                    username:'kenny'}});
+});
 
 //creating get request for the home or index page
 app.get('/',(request, response)=>{

@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Working with EJS Templating</title>
+</head>
+
+<body>
+    <!-- Displaying data from router -->
+    <h1>You searched for: <%= data.userQuery %> </h1>
+    <!-- Performing a check -->
+    <% if(data.loggedIn){ %>
+        <h2>You are logged in as : <%= data.username %> </h2>
+    <% } %>
+    <ul>
+         <!-- using a loop to display data -->
+        <% data.searchResults.forEach(result=>{ %>
+            <li><%= result %> </li>
+        <% }) %>
+        <!-- <li><%= data.searchResults[0] %></li>
+        <li>Item 2</li>
+        <li>Item 3</li> -->
+    </ul>
+</body>
+
+</html>
