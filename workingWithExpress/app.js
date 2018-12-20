@@ -12,6 +12,8 @@ const app = express();
 app.use('/public',express.static(path.join(__dirname,'static')));
 //using a middleware to allow parsing of urlencoded forms
 app.use(bodyParser.urlencoded({extended:false}));
+//using a middleware to allow parsing of JSON
+app.use(bodyParser.json());
 
 //creating get request for the home or index page
 app.get('/',(request, response)=>{
@@ -31,10 +33,17 @@ app.get('/example/:name/:age',(request,response)=>{
 });
 
 //handling POST request
-app.post('/',(request, response)=>{
+// app.post('/',(request, response)=>{
+//     console.log(request.body);
+//     //database work here
+//     response.send('successfully posted data');
+// });
+
+//handling a json POST request
+app.post('/', (request, response) => {
     console.log(request.body);
     //database work here
-    response.send('successfully posted data');
+    response.json({success:true});
 });
 
 //setting up a port to listen for request on
