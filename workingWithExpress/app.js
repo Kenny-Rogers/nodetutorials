@@ -9,6 +9,11 @@ const joi = require('joi');
 
 //app object is created by express and contains methods that can be used
 const app = express();
+//including a route
+const peopleRoute = require('./routes/people');
+//using the included route
+app.use('/people',peopleRoute);
+
 
 /*MIDDLEWARE: is the code the code that gets executed between the user request and
 the server e.g  app.use(bodyParser.json()) 
